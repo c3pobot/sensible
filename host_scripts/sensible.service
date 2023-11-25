@@ -1,0 +1,11 @@
+[Unit]
+Description=Sensible monitoring service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/sensible.sh
+User=root
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,66 @@
+general:
+    logfile: /var/log/sensible/sensible.log
+    loglevel: error
+    scriptlocation: /etc/sensible/scripts/
+mqtt:
+    hostname: 127.0.0.1
+    port: "1883"
+    username: ""
+    password: ""
+    clientid: sensible_mqtt_client
+discovery:
+    devicename: sensible-homebridge
+    prefix: homeassistant
+api:
+    enabled: false
+    port: 8090
+    token: 7ee85bb0-bcb9-4a70-bdce-3b4758896428
+plugins:
+    - name: Heartbeat
+      kind: internal
+      sensorid: heartbeat
+      script: ""
+      unitofmeasurement: ""
+      icon: mdi:wrench-check
+    - name: Boot Time
+      kind: internal
+      sensorid: boot_time
+      script: ""
+      unitofmeasurement: ""
+      icon: mdi:clock
+    - name: System Time
+      kind: internal
+      sensorid: system_time
+      script: ""
+      unitofmeasurement: ""
+      icon: mdi:clock
+    - name: Root Disk Free
+      kind: script
+      sensorid: root_free
+      script: root_free.sh
+      unitofmeasurement: GB
+      icon: mdi:harddisk
+    - name: Host Temperature
+      kind: script
+      sensorid: cpu_temp
+      script: cpu_temp.sh
+      unitofmeasurement: "C"
+      icon: mdi:temperature-celsius
+    - name: Host IP Address
+      kind: script
+      sensorid: ip_address
+      script: ip_address.sh
+      unitofmeasurement: ""
+      icon: mdi:network
+    - name: Hostname
+      kind: script
+      sensorid: hostname
+      script: hostname.sh
+      unitofmeasurement: ""
+      icon: mdi:network
+    - name: Platform
+      kind: script
+      sensorid: platform
+      script: platform.sh
+      unitofmeasurement: ""
+      icon: mdi:wrench-check
