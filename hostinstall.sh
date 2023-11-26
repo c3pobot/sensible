@@ -8,7 +8,10 @@ echo "Creating platform.txt..."
 uname -m > /opt/data/sensible/platform.txt
 
 echo "Creating settings.yaml..."
-
+curl https://raw.githubusercontent.com/c3pobot/sensible/main/settings.yaml -o /opt/data/sensible/settings.yaml
+HOST_NAME=$(hostname -f)
+sed -i -e "s/sensible-homeassistant/sensible-$HOST_NAME/g" /opt/data/sensible/settings.yaml
+sed -i -e "s/sensible_mqtt_client/sensible_mqtt_$HOST_NAME/g" /opt/data/sensible/settings.yaml
 
 echo "Creating /usr/local/bin/gethost.sh..."
 cat >  /usr/local/bin/gethostinfo.sh <<'EOF'
