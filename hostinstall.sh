@@ -1,8 +1,15 @@
 #!/bin/sh
 
+echo "Creating directories..."
 mkdir -p /opt/data/sensible
 chmod 777 /opt/data/sensible
+
+echo "Creating platform.txt..."
 uname -m > /opt/data/sensible/platform.txt
+
+echo "Creating settings.yaml..."
+
+
 echo "Creating /usr/local/bin/gethost.sh..."
 cat >  /usr/local/bin/gethostinfo.sh <<'EOF'
 #!/bin/sh

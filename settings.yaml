@@ -3,18 +3,16 @@ general:
     loglevel: error
     scriptlocation: /etc/sensible/scripts/
 mqtt:
-    hostname: 127.0.0.1
+    hostname: mqtt-broker
     port: "1883"
-    username: ""
-    password: ""
+    username: "hassio"
+    password: "hassio"
     clientid: sensible_mqtt_client
 discovery:
-    devicename: sensible-homebridge
+    devicename: sensible-homeassistant
     prefix: homeassistant
 api:
     enabled: false
-    port: 8090
-    token: 7ee85bb0-bcb9-4a70-bdce-3b4758896428
 plugins:
     - name: Heartbeat
       kind: internal
@@ -23,9 +21,9 @@ plugins:
       unitofmeasurement: ""
       icon: mdi:wrench-check
     - name: Boot Time
-      kind: internal
+      kind: script
       sensorid: boot_time
-      script: ""
+      script: boot_time.sh
       unitofmeasurement: ""
       icon: mdi:clock
     - name: System Time
@@ -34,18 +32,30 @@ plugins:
       script: ""
       unitofmeasurement: ""
       icon: mdi:clock
+    - name: Root Disk Used
+      kind: script
+      sensorid: root_used
+      script: root_used.sh
+      unitofmeasurement: GB
+      icon: mdi:harddisk
     - name: Root Disk Free
       kind: script
       sensorid: root_free
       script: root_free.sh
       unitofmeasurement: GB
       icon: mdi:harddisk
-    - name: Host Temperature
+    - name: CPU Temperature
       kind: script
       sensorid: cpu_temp
       script: cpu_temp.sh
-      unitofmeasurement: "C"
+      unitofmeasurement: C
       icon: mdi:temperature-celsius
+    - name: CPU Load
+      kind: script
+      sensorid: cpu_load
+      script: cpu_load.sh
+      unitofmeasurement: "%"
+      icon: mdi:cpu-64-bit
     - name: Host IP Address
       kind: script
       sensorid: ip_address
@@ -64,3 +74,27 @@ plugins:
       script: platform.sh
       unitofmeasurement: ""
       icon: mdi:wrench-check
+    - name: Mem Total
+      kind: script
+      sensorid: mem_total
+      script: total_mem.sh
+      unitofmeasurement: GB
+      icon: mdi:memory
+    - name: Mem Free
+      kind: script
+      sensorid: mem_free
+      script: free_mem.sh
+      unitofmeasurement: GB
+      icon: mdi:memory
+    - name: Mem Used
+      kind: script
+      sensorid: mem_used
+      script: used_mem.sh
+      unitofmeasurement: GB
+      icon: mdi:memory
+    - name: Mem Load
+      kind: script
+      sensorid: mem_load
+      script: mem_load.sh
+      unitofmeasurement: "%"
+      icon: mdi:memory
