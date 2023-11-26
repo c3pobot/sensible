@@ -1,5 +1,6 @@
 #!/bin/bash
 file1=$(head -n 1 .testregistry)
+tag=$1
 if [[ "$file1" ]]
 then
   echo 'personal registry set'
@@ -8,8 +9,10 @@ else
   registry="ghcr.io"
   echo "using ghcr.io for test build"
 fi
-testcontainer="${registry}/c3pobot/sensible:arm-test"
+testcontainer="${registry}/${tag}:test"
 echo building $testcontainer
 docker buildx create --use --name multi-arch-builder
-docker buildx build --platform=linux/arm64 -f Dockerfile.arm -t $testcontainer --push .
-#docker push $testcontainer
+docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t $container --push .
+
+echo building ghcr.io/${tag}:latest 
+docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/${tag}:latest --push .

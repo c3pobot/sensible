@@ -1,6 +1,9 @@
+#!/bin/sh
+
 root_used="\"$(df / | tail -n 1 | awk '{printf "%.2f", $3 / 1048576}')\""
 root_free="\"$(df / | tail -n 1 | awk '{printf "%.2f", $4 / 1048576}')\""
 cpu_temp="\"$(cat /sys/class/thermal/thermal_zone0/temp | awk '{printf "%.2f", $0 / 1000}')\""
+platform="\"$(uname -m)\""
 cpu_load="\"$(top -bn1 | awk '/Cpu/ { print $2}')\""
 host_name="\"$(hostname -f)\""
 ip_address="\"$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f7)\""
@@ -9,8 +12,14 @@ mem_total="\"$(free | awk '/Mem/ {printf "%.1f", $2 / 1048576}')\""
 mem_used="\"$(free | awk '/Mem/ {printf "%.1f", $3 / 1048576}')\""
 mem_free="\"$(free | awk '/Mem/ {printf "%.1f", $4 / 1048576}')\""
 mem_load="\"$(free | awk '/Mem/ {printf "%.1f", ($3 / $2) * 100}')\""
-cat > hostInfo.json <<EOF
+cat > /opt/data/sensible/hostInfo.json <<EOF
 [
+  {
+    "name": "Platform",
+    "id": "platform",
+    "icon": "mdi:wrench-check",
+    "value": $platform
+  },
   {
     "name": "Root Used",
     "id": "root_used",

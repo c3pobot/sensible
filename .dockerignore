@@ -1,0 +1,9 @@
+host_scripts
+.testregistry
+buildtestimage.sh
+buildprodimage.sh
+hostinstall.sh
+Dockerfile
+README.me
+.git
+.gitignore
