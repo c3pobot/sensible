@@ -1,89 +1,76 @@
-root_used="\"$(df / | tail -n 1 | awk '{printf "%.2f", $3 / 1048576}')\""
-root_free="\"$(df / | tail -n 1 | awk '{printf "%.2f", $4 / 1048576}')\""
-cpu_temp="\"$(cat /sys/class/thermal/thermal_zone0/temp | awk '{printf "%.2f", $0 / 1000}')\""
-cpu_load="\"$(top -bn1 | awk '/Cpu/ { print $2}')\""
-host_name="\"$(hostname -f)\""
-ip_address="\"$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f7)\""
-boot_time="\"$(uptime -s)\""
-mem_total="\"$(free | awk '/Mem/ {printf "%.1f", $2 / 1048576}')\""
-mem_used="\"$(free | awk '/Mem/ {printf "%.1f", $3 / 1048576}')\""
-mem_free="\"$(free | awk '/Mem/ {printf "%.1f", $4 / 1048576}')\""
-mem_load="\"$(free | awk '/Mem/ {printf "%.1f", ($3 / $2) * 100}')\""
-cat > hostInfo.json <<EOF
 [
   {
     "name": "Root Used",
     "id": "root_used",
     "icon": "mdi:harddisk",
     "unit": "GB",
-    "value": $root_used
+    "value": "111.41"
   },
   {
     "name": "Root Free",
     "id": "root_free",
     "icon": "mdi:harddisk",
     "unit": "GB",
-    "value": $root_free
+    "value": "2523.98"
   },
   {
     "name": "CPU Temp",
     "id": "cpu_temp",
     "icon": "mdi:temperature-celsius",
     "unit": "C",
-    "value": $cpu_temp
+    "value": "27.80"
   },
   {
     "name": "CPU Load",
     "id": "cpu_load",
     "icon": "mdi:cpu-64-bit",
     "unit": "%",
-    "value": $cpu_load
+    "value": "6.8"
   },
   {
     "name": "Hostname",
     "id": "host_name",
     "icon": "mdi:network",
-    "value": $host_name
+    "value": "ubuntu"
   },
   {
     "name": "Host IP Address",
     "id": "ip_address",
     "icon": "mdi:network",
-    "value": $ip_address
+    "value": "172.25.1.6"
   },
   {
     "name": "Boot Time",
     "id": "boot_time",
     "icon": "mdi:network",
-    "value": $boot_time
+    "value": "2023-11-12 00:38:53"
   },
   {
     "name": "Mem Total",
     "id": "mem_total",
     "icon": "mdi:memory",
     "unit": "GB",
-    "value": $mem_total
+    "value": "31.2"
   },
   {
     "name": "Mem Free",
     "id": "mem_free",
     "icon": "mdi:memory",
     "unit": "GB",
-    "value": $mem_free
+    "value": "15.3"
   },
   {
     "name": "Mem Used",
     "id": "mem_used",
     "icon": "mdi:memory",
     "unit": "GB",
-    "value": $mem_used
+    "value": "5.3"
   },
   {
     "name": "Mem Load",
     "id": "mem_load",
     "icon": "mdi:memory",
     "unit": "%",
-    "value": $mem_load
+    "value": "17.0"
   }
 ]
-EOF
