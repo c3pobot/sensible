@@ -45,9 +45,9 @@ var signals = {
 // Do any necessary shutdown logic for our application here
 const shutdown = async() => {
   await clearTimeout(syncTimeOut)
-  await sendAlwaysAvailableMessage('Offline')
+  //await sendAlwaysAvailableMessage('Offline')
   await sendDeviceAvailability('Offline')
-  process.exit(128 + value);
+  process.exit();
 };
 // Create a listener for each of the signals that we want to handle
 Object.keys(signals).forEach((signal) => {
@@ -138,31 +138,6 @@ const registerHeartBeat = ()=>{
     })
   })
 }
-const registerSystemTime = ()=>{
-  return new Promise((resolve, reject)=>{
-    let payload = {
-      name: 'System Time',
-      icon: 'mdi:clock',
-      state_topic: `homeassistant/sensor/sensible-${HOST_NAME}/sensible-${HOST_NAME}_system_time/state`,
-      availability_topic: `homeassistant/sensor/sensible-${HOST_NAME}/availability`,
-      payload_available: 'Online',
-      payload_not_available: 'Offline',
-      unique_id: `sensible-${HOST_NAME}_system_time`,
-      device: {
-        identifiers: [`sensible-${HOST_NAME}`],
-        manufacturer: 'Scuba',
-        model: "Sensible-Sensor",
-        name: `sensible-${HOST_NAME}`
-      }
-    }
-    client.publish(`homeassistant/sensor/sensible-${HOST_NAME}/sensible-${HOST_NAME}_system_time/config`, JSON.stringify(payload), { qos: 1, retain: true }, (error)=>{
-      if(error){
-        reject(error)
-      }
-      resolve()
-    })
-  })
-}
 const registerSensor = (id, name, icon, unit)=>{
   return new Promise((resolve, reject)=>{
     let payload = {
@@ -194,6 +169,7 @@ const registerSensors = async()=>{
     let hostInfo = await ReadFile()
     if(hostInfo?.length > 0){
       await registerHeartBeat()
+      await registerSensor('system_time', 'System Time', 'mdi:clock', null)
       for(let i in hostInfo){
         await registerSensor(hostInfo[i].id, hostInfo[i].name, hostInfo[i].icon, hostInfo[i].unit)
       }
