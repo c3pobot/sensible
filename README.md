@@ -1,5 +1,10 @@
 # sensible
 Host Setup
+run
+```
+curl https://raw.githubusercontent.com/c3pobot/sensible/main/hostinstall.sh | sudo bash
+``
+or Manual install below
 copy files from host_scripts to the host machine
 ```
 nano /usr/local/bin/sensible.sh
