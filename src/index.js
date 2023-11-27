@@ -106,6 +106,7 @@ const updateSensors = async()=>{
       }
       let current_time = new Date()
       await updateSensor('system_time', date.format(current_time, 'YYYY-MM-DD HH:mm:ss'))
+      await updateSensor('last_seen', current_time.toLocaleString('en-US', { timeZone: 'America/New_york', hour12: false }))
     }
     syncTimeOut = setTimeout(updateSensors, 5000)
   }catch(e){
@@ -170,6 +171,7 @@ const registerSensors = async()=>{
     if(hostInfo?.length > 0){
       await registerHeartBeat()
       await registerSensor('system_time', 'System Time', 'mdi:clock', null)
+      await registerSensor('last_seen', 'Last Seen', 'mdi:clock', null)
       for(let i in hostInfo){
         await registerSensor(hostInfo[i].id, hostInfo[i].name, hostInfo[i].icon, hostInfo[i].unit)
       }
