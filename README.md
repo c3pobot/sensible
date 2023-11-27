@@ -44,6 +44,5 @@ systemctl start sensible.service
 Docker volume mapping
 ```
 /opt/data/sensible:/data
-/opt/data/sensible/settings.yaml:/etc/sensible/settings.yaml
 ```
 
