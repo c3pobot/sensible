@@ -5,7 +5,7 @@ root_free="\"$(df / | tail -n 1 | awk '{printf "%.2f", $4 / 1048576}')\""
 platform="\"$(uname -m)\""
 cpu_load="\"$(top -bn1 | awk '/Cpu/ { print $2}')\""
 host_name="\"$(hostname)\""
-boot_time="\"$(uptime -s)\""
+boot_time="\"$(awk '/btime/ {print $2}' /proc/stat)\""
 mem_total="\"$(free | awk '/Mem/ {printf "%.1f", $2 / 1048576}')\""
 mem_used="\"$(free | awk '/Mem/ {printf "%.1f", $3 / 1048576}')\""
 mem_free="\"$(free | awk '/Mem/ {printf "%.1f", $4 / 1048576}')\""
@@ -33,13 +33,6 @@ cat > /opt/data/hostInfo.json <<EOF
     "value": $root_free
   },
   {
-    "name": "CPU Temp",
-    "id": "cpu_temp",
-    "icon": "mdi:temperature-celsius",
-    "unit": "C",
-    "value": $cpu_temp
-  },
-  {
     "name": "CPU Load",
     "id": "cpu_load",
     "icon": "mdi:cpu-64-bit",
@@ -51,12 +44,6 @@ cat > /opt/data/hostInfo.json <<EOF
     "id": "host_name",
     "icon": "mdi:network",
     "value": $host_name
-  },
-  {
-    "name": "Host IP Address",
-    "id": "ip_address",
-    "icon": "mdi:network",
-    "value": $ip_address
   },
   {
     "name": "Boot Time",
