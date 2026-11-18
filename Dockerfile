@@ -1,5 +1,5 @@
 FROM busybox:latest
-
+LABEL org.opencontainers.image.source=https://github.com/c3pobot/sensible
 WORKDIR /app
 
 RUN mkdir -p /opt/data

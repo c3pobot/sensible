@@ -1,15 +1,18 @@
 #!/bin/sh
-file1=$(head -n 1 .testregistry)
-tag=$1
-if [[ "$file1" ]]
-then
-  echo 'personal registry set'
-  registry="${file1%%[[:cntrl:]]}"
+
+file1=$(head -n 1 .testregistry 2>/dev/null)
+tag=${1:-latest}
+
+if [ -n "$file1" ]; then
+    echo "personal registry set"
+    registry="${file1%%[[:cntrl:]]}"
 else
-  registry="ghcr.io"
-  echo "using ghcr.io for test build"
+    registry="ghcr.io"
+    echo "using ghcr.io for test build"
 fi
-container="${registry}/$sensible:latest"
-echo building $container
-docker build -t $container .
-docker push $container
+
+container="${registry}/sensible:${tag}"
+
+echo "building $container"
+docker build -t "$container" .
+docker push "$container"
