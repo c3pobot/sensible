@@ -12,7 +12,7 @@ mem_total="\"$(free | awk '/Mem/ {printf "%.1f", $2 / 1048576}')\""
 mem_used="\"$(free | awk '/Mem/ {printf "%.1f", $3 / 1048576}')\""
 mem_free="\"$(free | awk '/Mem/ {printf "%.1f", $4 / 1048576}')\""
 mem_load="\"$(free | awk '/Mem/ {printf "%.1f", ($3 / $2) * 100}')\""
-cat > /opt/data/sensible/hostInfo.json <<EOF
+cat > /opt/data/hostInfo.json <<EOF
 [
   {
     "name": "Platform",
