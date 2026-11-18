@@ -11,7 +11,7 @@ else
     echo "using ghcr.io for test build"
 fi
 
-container="${registry}/sensible:${tag}"
+container="${registry}/c3po/sensible:${tag}"
 
 echo "building $container"
 docker build -t "$container" .
